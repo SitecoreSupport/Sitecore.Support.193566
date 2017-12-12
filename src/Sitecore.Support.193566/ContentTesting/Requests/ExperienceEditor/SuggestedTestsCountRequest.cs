@@ -46,6 +46,13 @@ namespace Sitecore.Support.ContentTesting.Requests.ExperienceEditor
         /// <returns>The number of suggested tests.</returns>
         public override PipelineProcessorResponseValue ProcessRequest()
         {
+            if (!Settings.IsAutomaticContentTestingEnabled)
+            {
+               return new PipelineProcessorResponseValue
+               {
+                  Value = false
+               };
+            }
             var tests = _contentTestStore.GetSuggestedTests(null);
             var count = tests.Count();
 
